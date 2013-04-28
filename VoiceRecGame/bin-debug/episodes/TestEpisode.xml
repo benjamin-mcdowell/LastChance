@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EPISODE>
+	<PARTICIPANTS>
+	<CHARACTER>
+			<NAME>Player</NAME>
+			<IMAGE>IPLAYFREEELYY</IMAGE>
+	</CHARACTER>
+	
+	<CHARACTER>
+			<NAME>McTestman</NAME>
+			<IMAGE>ghiwhaidai</IMAGE>
+		</CHARACTER>
+	</PARTICIPANTS>
+	
+	<SEGMENT TYPE="conversation">
+	
+		<LINE ID="0">
+		<SPEAKER>McTestman</SPEAKER>
+		<TEXT>Gentlemans How are you doing?</TEXT>
+		<RESPONSES>1,2,3</RESPONSES>
+		<PASSCOUNT>0</PASSCOUNT>
+		<FAILCOUNT>0</FAILCOUNT>
+		<PATHTOMP3>GFAOOWWWWWaaiio</PATHTOMP3>
+		</LINE>
+		
+		<LINE ID="1">
+		<SPEAKER>Player</SPEAKER>
+		<TEXT>Your face makes me sad</TEXT>
+		<RESPONSES>4</RESPONSES>
+		<PASSCOUNT>0</PASSCOUNT>
+		<FAILCOUNT>0</FAILCOUNT>
+		<PATHTOMP3>none</PATHTOMP3>
+		</LINE>
+		
+		<LINE ID="2">
+		<SPEAKER>Player</SPEAKER>
+		<TEXT>You are a jerk and I hate you</TEXT>
+		<RESPONSES>4</RESPONSES>
+		<PASSCOUNT>0</PASSCOUNT>
+		<FAILCOUNT>0</FAILCOUNT>
+		<PATHTOMP3>none</PATHTOMP3>
+		</LINE>
+		
+		<LINE ID="3">
+		<SPEAKER>Player</SPEAKER>
+		<TEXT>Oh hey sandwich breath.</TEXT>
+		<RESPONSES>4</RESPONSES>
+		<PASSCOUNT>0</PASSCOUNT>
+		<FAILCOUNT>0</FAILCOUNT>
+		<PATHTOMP3>none</PATHTOMP3>
+		</LINE>
+		
+	</SEGMENT>
+</EPISODE>

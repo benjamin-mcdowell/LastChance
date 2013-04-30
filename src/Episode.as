@@ -1,10 +1,11 @@
 package
 {
 	import com.bit101.components.Label;
+	import flash.display.Sprite;
 	
 	public class Episode
 	{
-		public function Episode(x:XML)
+		public function Episode(x:XML, displayer:Sprite)
 		{	
 			//Initalize Characters
 			var characterVector:Vector.<Character>;
@@ -20,14 +21,14 @@ package
 				character = new Character(charName, charPathToAvi);
 				characterVector[d] = character;
 				
-				trace(characterVector[d].charName + " " + characterVector[d].pathToAvi);
+				//trace(characterVector[d].charName + " " + characterVector[d].pathToAvi);
 			}
 			
 			//Count of the number of segments in the episode XML file.
 			var numOfSegments:int = x.SEGMENT.length()
 			for (var i:int=0; i<numOfSegments; i++)
 			{
-				trace("Proccessing " + i + "th Segment");
+				//trace("Proccessing " + i + "th Segment");
 				
 				if(x.SEGMENT[i].@TYPE == "conversation")
 				{	
@@ -39,7 +40,7 @@ package
 					var numOfLines:int = x.SEGMENT[i].LINE.length()
 					for (var j:int=0; j<numOfLines; j++)
 					{
-						trace("Proccessing " + j + "th Line");
+						//trace("Proccessing " + j + "th Line");
 						
 						var lineID:int = x.SEGMENT[i].@LINE[j];
 						
@@ -70,11 +71,12 @@ package
 						line = new Line(lineID, speakerID, varLineText, responses, passCount, failCount, pathToMP3);
 						lineVector[j] = line;
 						
-						trace(lineVector[j].lineID + " " + lineVector[j].lineText + " " + lineVector[j].responses + " --- " + lineVector[j].speakerID);
+						//trace(characterVector[lineVector[j].speakerID].charName);
+						//trace(lineVector[j].lineText + " " + lineVector[j].responses);
 					}
 					
 					var conversation:Conversation;
-					conversation = new Conversation(characterVector, lineVector);
+					conversation = new Conversation(characterVector, lineVector, displayer);
 				}
 				else if(x.SEGMENT[i].@TYPE == "adventure")
 				{

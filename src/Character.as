@@ -9,7 +9,6 @@ package
 		{
 			this.charName = charName;
 			this.pathToAvi = pathToAvi;
-			
 		}
 	}
 }

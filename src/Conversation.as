@@ -13,13 +13,30 @@ package
 		private var speechDiplomat:SpeechDiplomat;
 		public var characterVector:Vector.<Character>;
 		public var lineVector:Vector.<Line>;
+		public var displayer:Sprite;
 
-		public function Conversation(characterVector:Vector.<Character>, lineVector:Vector.<Line>)
+		public function Conversation(characterVector:Vector.<Character>, lineVector:Vector.<Line>, displayer:Sprite)
 		{
 			this.characterVector = characterVector;
 			this.lineVector = lineVector;
+			this.displayer = displayer;
 			
 			initializeSpeech();
+			initalizeUI();
+			
+			trace(characterVector[lineVector[0].speakerID].charName);
+			trace(lineVector[0].lineText + " " + lineVector[0].responses);
+		}
+		
+		private function initalizeUI():void
+		{
+			var square: Sprite = new Sprite();
+			square.graphics.beginFill(0x000000);
+			square.graphics.drawRect(0,0,1000,50);
+			square.graphics.endFill();
+			square.x = 0;
+			square.y = 0;
+			displayer.addChild(square);
 		}
 		
 		private function initializeSpeech():void

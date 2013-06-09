@@ -7,7 +7,6 @@ package
 	{
 		public function Episode(x:XML, displayer:Sprite)
 		{	
-			//Initalize Characters
 			var characterVector:Vector.<Character>;
 			characterVector = new Vector.<Character>();
 			

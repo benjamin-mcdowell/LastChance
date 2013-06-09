@@ -24,14 +24,14 @@ package
 			
 			var displayer:Sprite = new Sprite();
 			stage.addChild(displayer);
-			displayer.graphics.beginFill(0x0000FF, 0.5);
+			displayer.graphics.beginFill(333333, 0.5);
 			displayer.graphics.drawRect(0,0,700,1000);
 			displayer.graphics.endFill();
 			displayer.x = -40;
 			displayer.y = 0;
 			
 			var episode:Episode;
-			episode = new Episode(xml,displayer);
+			episode = new Episode(xml, displayer);
 		}
 	}
 }

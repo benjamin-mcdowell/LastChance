@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EPISODE>
-	<PARTICIPANTS>
-	<CHARACTER>
-			<NAME>Player</NAME>
-			<IMAGE>IPLAYFREEELYY</IMAGE>
-	</CHARACTER>
-	
-	<CHARACTER>
-			<NAME>McTestman</NAME>
-			<IMAGE>ghiwhaidai</IMAGE>
-		</CHARACTER>
-	</PARTICIPANTS>
-	
 	<SEGMENT TYPE="conversation">
 	
 		<LINE ID="0">
 		<SPEAKER>McTestman</SPEAKER>
+		<IMAGE>Testy</IMAGE>
 		<TEXT>Gentlemans How are you doing?</TEXT>
+		<DIALOG>pathpathpath.mp3.com</DIALOG>
 		<RESPONSES>1,2,3</RESPONSES>
 		<PASSCOUNT>0</PASSCOUNT>
 		<FAILCOUNT>0</FAILCOUNT>
@@ -25,7 +15,9 @@
 		
 		<LINE ID="1">
 		<SPEAKER>Player</SPEAKER>
+		<IMAGE>ghiwhaidai</IMAGE>
 		<TEXT>Your face makes me sad</TEXT>
+		<DIALOG>pathpathpath.mp3.com</DIALOG>
 		<RESPONSES>4</RESPONSES>
 		<PASSCOUNT>0</PASSCOUNT>
 		<FAILCOUNT>0</FAILCOUNT>
@@ -34,7 +26,9 @@
 		
 		<LINE ID="2">
 		<SPEAKER>Player</SPEAKER>
+		<IMAGE>ghiwhaidai</IMAGE>
 		<TEXT>You are a jerk and I hate you</TEXT>
+		<DIALOG>pathpathpath.mp3.com</DIALOG>
 		<RESPONSES>4</RESPONSES>
 		<PASSCOUNT>0</PASSCOUNT>
 		<FAILCOUNT>0</FAILCOUNT>
@@ -43,12 +37,26 @@
 		
 		<LINE ID="3">
 		<SPEAKER>Player</SPEAKER>
-		<TEXT>Oh hey sandwich breath.</TEXT>
+		<IMAGE>ghiwhaidai</IMAGE>
+		<TEXT>Oh hey sandwich breath</TEXT>
+		<DIALOG>pathpathpath.mp3.com</DIALOG>
 		<RESPONSES>4</RESPONSES>
 		<PASSCOUNT>0</PASSCOUNT>
 		<FAILCOUNT>0</FAILCOUNT>
 		<PATHTOMP3>none</PATHTOMP3>
 		</LINE>
 		
+		<LINE ID="4">
+		<SPEAKER>McTestman</SPEAKER>
+		<IMAGE>Testy</IMAGE>
+		<TEXT>End of Conversation</TEXT>
+		<DIALOG>pathpathpath.mp3.com</DIALOG>
+		<RESPONSES>0</RESPONSES>
+		<PASSCOUNT>0</PASSCOUNT>
+		<FAILCOUNT>0</FAILCOUNT>
+		<PATHTOMP3>none</PATHTOMP3>
+		</LINE>
+		
 	</SEGMENT>
+	
 </EPISODE>

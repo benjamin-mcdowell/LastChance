@@ -1,7 +1,6 @@
 package
 {
 	import com.bit101.components.Label;
-	
 	import flash.display.Sprite;
 	
 	public class Episode
@@ -41,6 +40,8 @@ package
 						//trace(characterVector[lineVector[j].speakerID].charName);
 						//trace(lineVector[j].lineText + " " + lineVector[j].responses);
 					}
+					
+					//takes the lines of the conversation and the graphic displayer as input
 					var conversation:Conversation;
 					conversation = new Conversation(lineVector, displayer);
 				}

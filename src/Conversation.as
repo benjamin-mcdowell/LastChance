@@ -19,6 +19,11 @@ package
 		public var lineVector:Vector.<Line>;
 		public var displayer:Sprite;
 		
+		public var response1Processed:Array = new Array();
+		public var response2Processed:Array = new Array();
+		public var response3Processed:Array = new Array();
+		private var speechPhraseArray:Array = new Array();
+		
 		//UI Elements
 		public var topBorder: Sprite = new Sprite();
 		public var speakerName:Label = new Label();
@@ -102,6 +107,29 @@ package
 			//get the current phrase from the recognizer as e.data
 			speechPhrase = e.data;
 			currentPhrase.text = speechPhrase;
+			
+			//turn the phrase into an array for processing
+			var speechPhraseLower:String = speechPhrase.toLowerCase();
+			speechPhraseArray= speechPhraseLower.split(" ");
+			
+			//attempt to recognize any one of the unique words from the speech input array
+			for each (var phraseWord:String in speechPhraseArray)
+			{
+				if(response1Processed.indexOf(phraseWord) > -1)
+				{
+					trace("Phrase Found In Response 1");
+				}
+				
+				if(response2Processed.indexOf(phraseWord) > -1)
+				{
+					trace("Phrase Found In Response 2");
+				}
+				
+				if(response3Processed.indexOf(phraseWord) > -1)
+				{
+					trace("Phrase Found In Response 3");
+				}
+			}
 		}
 		
 		//primary loop for the conversation
@@ -120,7 +148,7 @@ package
 				for each (var word:String in allWords.split(" "))
 				{
 					var countArray:Array = allWords.split(" " + word + " ");
-					var count:int = countArray.length - 1;
+					var count:int = countArray.length - 1; 
 					
 					if(count >= 2)
 					{
@@ -131,19 +159,16 @@ package
 					}
 				}
 				
-				//uses the processed words list, to determine the unique words in each response
 				var response1String:String = response1.text.toLowerCase();
 				var response1Array:Array = response1String.split(" ");
-				var response1Processed:String = "";
 				
 				var response2String:String = response2.text.toLowerCase();
 				var response2Array:Array = response2String.split(" ");
-				var response2Processed:String = "";
 				
 				var response3String:String = response3.text.toLowerCase();
 				var response3Array:Array = response3String.split(" ");
-				var response3Processed:String = "";
 				
+				//uses the processed words list to determine the unique words in each response
 				for each (var processedWord:String in allWords.split(" "))
 				{
 					//processing response 1
@@ -151,8 +176,7 @@ package
 					{						
 						if(processedWord == resp1Word)
 						{
-							response1Processed = response1Processed + resp1Word + " ";
-							break;
+							response1Processed.push(resp1Word);
 						}
 					}
 					
@@ -161,8 +185,7 @@ package
 					{						
 						if(processedWord == resp2Word)
 						{
-							response2Processed = response2Processed + resp2Word + " ";
-							break;
+							response2Processed.push(resp2Word);
 						}
 					}
 					
@@ -171,18 +194,16 @@ package
 					{						
 						if(processedWord == resp3Word)
 						{
-							response3Processed = response3Processed + resp3Word + " ";
-							break;
+							response3Processed.push(resp3Word);
 						}
-					}
-					
-				}
-				
-				//Display Finished Lists
-				//trace("finished response 1 list: " + response1Processed);
-				//trace("finished response 2 list: " + response2Processed);
-				//trace("finished response 3 list: " + response3Processed);
-			}						
+					}	
+				}	
+			}
+			
+			//Display Finished Lists
+			trace("finished response 1 list: " + response1Processed.toString());
+			trace("finished response 2 list: " + response2Processed.toString());
+			trace("finished response 3 list: " + response3Processed.toString());
 		}
 	}
 }

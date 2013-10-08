@@ -1,13 +1,15 @@
 package
 {	
-	//speech recognition packages
+	//bit101 components
 	import com.bit101.components.Label;
 	import com.bit101.components.Text;
+	
+	//speech recognition packages
 	import com.bmcdo248.SpeechExtension.events.SpeechEvent;
 	import com.bmcdo248.SpeechExtension.speechDiplomat.SpeechDiplomat;
 	
+	//standard imports
 	import flash.display.Sprite;
-	
 	
 	public class Conversation
 	{
@@ -19,9 +21,12 @@ package
 		public var lineVector:Vector.<Line>;
 		public var displayer:Sprite;
 		
+		//holds the unique words of each response
 		public var response1Processed:Array = new Array();
 		public var response2Processed:Array = new Array();
 		public var response3Processed:Array = new Array();
+		
+		//holds the phrase the user spoke loaded via data event handler
 		private var speechPhraseArray:Array = new Array();
 		
 		//UI Elements
@@ -44,7 +49,7 @@ package
 			initalizeUI();
 			
 			//begin processing lines
-			dialogLoop();
+			nextLine(lineVector[0]);
 		}
 				
 		private function initializeSpeech():void
@@ -132,78 +137,69 @@ package
 			}
 		}
 		
-		//primary loop for the conversation
-		private function dialogLoop():void
+		private function nextLine(line:Line):void
 		{
-			for each (var line:Line in lineVector) 
+			//reads in the data for this line and its associated player responses
+			speakerName.text = lineVector[line.lineID].speaker;
+			response1.text = lineVector[lineVector[line.lineID].responses[0]].lineText;
+			response2.text = lineVector[lineVector[line.lineID].responses[1]].lineText;
+			response3.text = lineVector[lineVector[line.lineID].responses[2]].lineText;
+			var allWords:String = response1.text.toLowerCase() + " " + response2.text.toLowerCase() + " " + response3.text.toLowerCase();
+			
+			//Takes all words from the current line as input and removes all words occuring more than once.
+			for each (var word:String in allWords.split(" "))
 			{
-				//reads in the data for this line
-				speakerName.text = lineVector[line.lineID].speaker;
-				response1.text = lineVector[lineVector[line.lineID].responses[0]].lineText;
-				response2.text = lineVector[lineVector[line.lineID].responses[1]].lineText;
-				response3.text = lineVector[lineVector[line.lineID].responses[2]].lineText;
-				var allWords:String = response1.text.toLowerCase() + " " + response2.text.toLowerCase() + " " + response3.text.toLowerCase();
+				var countArray:Array = allWords.split(" " + word + " ");
+				var count:int = countArray.length - 1; 
 				
-				//Takes all words from the current line as input and removes all words occuring more than once.
-				for each (var word:String in allWords.split(" "))
+				if(count >= 2)
 				{
-					var countArray:Array = allWords.split(" " + word + " ");
-					var count:int = countArray.length - 1; 
-					
-					if(count >= 2)
-					{
-						for (var i:Number=0; i<count; i++)
-						{ 
-							allWords = allWords.replace(" " + word + " ", " ");
-						}
+					for (var i:Number=0; i<count; i++)
+					{ 
+						allWords = allWords.replace(" " + word + " ", " ");
 					}
 				}
-				
-				var response1String:String = response1.text.toLowerCase();
-				var response1Array:Array = response1String.split(" ");
-				
-				var response2String:String = response2.text.toLowerCase();
-				var response2Array:Array = response2String.split(" ");
-				
-				var response3String:String = response3.text.toLowerCase();
-				var response3Array:Array = response3String.split(" ");
-				
-				//uses the processed words list to determine the unique words in each response
-				for each (var processedWord:String in allWords.split(" "))
-				{
-					//processing response 1
-					for each (var resp1Word:String in response1Array)
-					{						
-						if(processedWord == resp1Word)
-						{
-							response1Processed.push(resp1Word);
-						}
-					}
-					
-					//processing response 2
-					for each (var resp2Word:String in response2Array)
-					{						
-						if(processedWord == resp2Word)
-						{
-							response2Processed.push(resp2Word);
-						}
-					}
-					
-					//processing response 3
-					for each (var resp3Word:String in response3Array)
-					{						
-						if(processedWord == resp3Word)
-						{
-							response3Processed.push(resp3Word);
-						}
-					}	
-				}	
 			}
 			
-			//Display Finished Lists
-			trace("finished response 1 list: " + response1Processed.toString());
-			trace("finished response 2 list: " + response2Processed.toString());
-			trace("finished response 3 list: " + response3Processed.toString());
+			var response1String:String = response1.text.toLowerCase();
+			var response1Array:Array = response1String.split(" ");
+							
+			var response2String:String = response2.text.toLowerCase();
+			var response2Array:Array = response2String.split(" ");
+						
+			var response3String:String = response3.text.toLowerCase();
+			var response3Array:Array = response3String.split(" ");
+			
+			//uses the all words list to determine the unique words in each response and sorts them accordingly
+			for each (var processedWord:String in allWords.split(" "))
+			{
+				for each (var resp1Word:String in response1Array)
+				{						
+					if(processedWord == resp1Word)
+					{
+						response1Processed.push(resp1Word);
+					}
+				}
+
+				for each (var resp2Word:String in response2Array)
+				{						
+					if(processedWord == resp2Word)
+					{
+						response2Processed.push(resp2Word);
+					}
+				}
+
+				for each (var resp3Word:String in response3Array)
+				{						
+					if(processedWord == resp3Word)
+					{
+						response3Processed.push(resp3Word);
+					}
+				}	
+			}	
+			
+			
+			// use data from speech recognition recursively call next line?
 		}
 	}
 }

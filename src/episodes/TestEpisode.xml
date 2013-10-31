@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EPISODE>
+
 	<SEGMENT TYPE="conversation">
-	
 		<LINE ID="0">
 		<SPEAKER>McTestman</SPEAKER>
 		<IMAGE>Testy</IMAGE>
@@ -56,7 +56,6 @@
 		<FAILCOUNT>0</FAILCOUNT>
 		<PATHTOMP3>none</PATHTOMP3>
 		</LINE>
-		
 	</SEGMENT>
 	
 </EPISODE>

@@ -37,10 +37,8 @@ package
 						line = new Line(lineID, speaker, varLineText, responses, passCount, failCount, pathToMP3);
 						lineVector[j] = line;
 						
-						//trace(characterVector[lineVector[j].speakerID].charName);
 						//trace(lineVector[j].lineText + " " + lineVector[j].responses);
 					}
-					
 					//takes the lines of the conversation and the graphic displayer as input
 					var conversation:Conversation;
 					conversation = new Conversation(lineVector, displayer);
@@ -48,12 +46,12 @@ package
 				else if(x.SEGMENT[i].@TYPE == "adventure")
 				{
 					var adventure:Adventure;
-					adventure = new Adventure();
+					adventure = new Adventure(displayer);
 				}
 				else if(x.SEGMENT[i].@TYPE == "cutscene")
 				{
 					var cutscene:Cutscene;
-					cutscene = new Cutscene();
+					cutscene = new Cutscene(displayer);
 				}
 			}			
 		}

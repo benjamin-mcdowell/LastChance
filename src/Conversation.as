@@ -69,12 +69,12 @@ package
 			topBorder.y = 0;
 			displayer.addChild(topBorder);
 			
-			speakerName.text = "Blank Speaker";
+			speakerName.text = "";
 			speakerName.x = 30;
 			speakerName.y = 30;
 			displayer.addChild(speakerName);
 			
-			currentPhrase.text = "Blank Recognizer Phrase";
+			currentPhrase.text = "";
 			currentPhrase.x = 200;
 			currentPhrase.y = 7;
 			displayer.addChild(currentPhrase);
@@ -86,17 +86,17 @@ package
 			bottomBorder.y = 325;
 			displayer.addChild(bottomBorder);
 			
-			response1.text = "Blank Dialog Response 1";
+			response1.text = "";
 			response1.x = 30;
 			response1.y = 325;
 			displayer.addChild(response1);
 			
-			response2.text = "Blank Dialog Response 2";
+			response2.text = "";
 			response2.x = 30;
 			response2.y = 340;
 			displayer.addChild(response2);
 			
-			response3.text = "Blank Dialog Response 3";
+			response3.text = "";
 			response3.x = 30;
 			response3.y = 355;
 			displayer.addChild(response3);

@@ -18,7 +18,7 @@
 		<IMAGE>ghiwhaidai</IMAGE>
 		<TEXT>Your face makes me sad</TEXT>
 		<DIALOG>pathpathpath.mp3.com</DIALOG>
-		<RESPONSES>4</RESPONSES>
+		<RESPONSES>4,4,4</RESPONSES>
 		<PASSCOUNT>0</PASSCOUNT>
 		<FAILCOUNT>0</FAILCOUNT>
 		<PATHTOMP3>none</PATHTOMP3>
@@ -29,7 +29,7 @@
 		<IMAGE>ghiwhaidai</IMAGE>
 		<TEXT>You are a jerk and I hate you</TEXT>
 		<DIALOG>pathpathpath.mp3.com</DIALOG>
-		<RESPONSES>4</RESPONSES>
+		<RESPONSES>4,4,4</RESPONSES>
 		<PASSCOUNT>0</PASSCOUNT>
 		<FAILCOUNT>0</FAILCOUNT>
 		<PATHTOMP3>none</PATHTOMP3>
@@ -40,7 +40,7 @@
 		<IMAGE>ghiwhaidai</IMAGE>
 		<TEXT>Testing 1 2 3</TEXT>
 		<DIALOG>pathpathpath.mp3.com</DIALOG>
-		<RESPONSES>4</RESPONSES>
+		<RESPONSES>4,4,4</RESPONSES>
 		<PASSCOUNT>0</PASSCOUNT>
 		<FAILCOUNT>0</FAILCOUNT>
 		<PATHTOMP3>none</PATHTOMP3>

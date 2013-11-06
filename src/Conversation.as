@@ -3,12 +3,10 @@ package
 	//bit101 components
 	import com.bit101.components.Label;
 	import com.bit101.components.Text;
-	
-	//speech recognition packages
 	import com.bmcdo248.SpeechExtension.events.SpeechEvent;
 	import com.bmcdo248.SpeechExtension.speechDiplomat.SpeechDiplomat;
 	
-	//standard imports
+	//Default imports
 	import flash.display.Sprite;
 	
 	public class Conversation
@@ -34,9 +32,14 @@ package
 		public var speakerName:Label = new Label();
 		public var currentPhrase:Label = new Label();		
 		public var bottomBorder: Sprite = new Sprite();
-		public var response1:Label = new Label;
-		public var response2:Label = new Label;
-		public var response3:Label = new Label;
+		public var response1:Label = new Label();
+		public var response2:Label = new Label();
+		public var response3:Label = new Label();
+		
+		//Variables
+		private var lineToProcess:int = 0;
+		private var endOfConversation:Boolean = false;
+		private var thresh:Number = .0; // this is a constant don't change under penalty of death
 
 		public function Conversation(lineVector:Vector.<Line>, displayer:Sprite)
 		{
@@ -48,8 +51,7 @@ package
 			initializeSpeech();
 			initalizeUI();
 			
-			//begin processing lines
-			nextLine(lineVector[0]);
+			processLine(lineVector[0]);
 		}
 				
 		private function initializeSpeech():void
@@ -86,20 +88,77 @@ package
 			bottomBorder.y = 325;
 			displayer.addChild(bottomBorder);
 			
-			response1.text = "";
+			response1.text = "blank";
 			response1.x = 30;
 			response1.y = 325;
 			displayer.addChild(response1);
 			
-			response2.text = "";
+			response2.text = "blank";
 			response2.x = 30;
 			response2.y = 340;
 			displayer.addChild(response2);
 			
-			response3.text = "";
+			response3.text = "blank";
 			response3.x = 30;
 			response3.y = 355;
 			displayer.addChild(response3);
+		}
+
+		private function dataEventHandler(e:SpeechEvent):void
+		{
+			//get the current phrase from the recognizer as e.data
+			speechPhrase = e.data;
+			currentPhrase.text = speechPhrase;
+			
+			//attempt to recognize any one of the unique words from the speech input array
+			var speechPhraseLower:String = speechPhrase.toLowerCase();
+			speechPhraseArray= speechPhraseLower.split(" ");
+			
+			//Counts for each response
+			var resp1Count:int;
+			var resp2Count:int;
+			var resp3Count:int;
+			trace("Grabbed speech");
+			
+			
+			for each (var phraseWord:String in speechPhraseArray)
+			{
+				trace(phraseWord + " " + response3Processed);
+				if(response1Processed.indexOf(phraseWord) > -1)
+				{
+					resp1Count++;
+				}
+				else if(response2Processed.indexOf(phraseWord) > -1)
+				{
+					resp2Count++;
+				}
+				else if(response3Processed.indexOf(phraseWord) > -1)
+				{
+					resp3Count++;
+				}
+			}
+			trace("counts: " + resp1Count + "  " + resp2Count + "  " + resp3Count);
+			
+			var resp1Ratio:Number = resp1Count / response1Processed.length;
+			var resp2Ratio:Number = resp2Count / response2Processed.length;
+			var resp3Ratio:Number = resp3Count / response3Processed.length;
+			trace("ratios: " + resp1Ratio + "  " + resp2Ratio + "  " + resp3Ratio);
+			
+			if (resp1Ratio > resp2Ratio && resp3Ratio > resp1Ratio)
+			{
+				if(resp1Ratio > thresh)
+					processLine(lineVector[lineVector[lineToProcess].responses[0]]);
+			}	
+			else if (resp1Ratio > resp2Ratio && resp3Ratio > resp1Ratio)
+			{
+				if(resp2Ratio > thresh)
+					processLine(lineVector[lineVector[lineToProcess].responses[1]]);
+			}
+			else
+			{
+				if(resp3Ratio > thresh)
+					processLine(lineVector[lineVector[lineToProcess].responses[2]]);
+			}
 		}
 		
 		private function finalizeApp():void
@@ -107,38 +166,9 @@ package
 			speechDiplomat.dispose();
 		}
 		
-		private function dataEventHandler(e:SpeechEvent):void
+		private function processLine(line:Line):void
 		{
-			//get the current phrase from the recognizer as e.data
-			speechPhrase = e.data;
-			currentPhrase.text = speechPhrase;
-			
-			//turn the phrase into an array for processing
-			var speechPhraseLower:String = speechPhrase.toLowerCase();
-			speechPhraseArray= speechPhraseLower.split(" ");
-			
-			//attempt to recognize any one of the unique words from the speech input array
-			for each (var phraseWord:String in speechPhraseArray)
-			{
-				if(response1Processed.indexOf(phraseWord) > -1)
-				{
-					trace("Phrase Found In Response 1");
-				}
-				
-				if(response2Processed.indexOf(phraseWord) > -1)
-				{
-					trace("Phrase Found In Response 2");
-				}
-				
-				if(response3Processed.indexOf(phraseWord) > -1)
-				{
-					trace("Phrase Found In Response 3");
-				}
-			}
-		}
-		
-		private function nextLine(line:Line):void
-		{
+			trace("LINE IS FUCKING PROCESSING: " + line.lineID);
 			//reads in the data for this line and its associated player responses
 			speakerName.text = lineVector[line.lineID].speaker;
 			response1.text = lineVector[lineVector[line.lineID].responses[0]].lineText;
@@ -151,7 +181,6 @@ package
 			{
 				var countArray:Array = allWords.split(" " + word + " ");
 				var count:int = countArray.length - 1; 
-				
 				if(count >= 2)
 				{
 					for (var i:Number=0; i<count; i++)
@@ -160,7 +189,6 @@ package
 					}
 				}
 			}
-			
 			var response1String:String = response1.text.toLowerCase();
 			var response1Array:Array = response1String.split(" ");
 							
@@ -196,10 +224,8 @@ package
 						response3Processed.push(resp3Word);
 					}
 				}	
-			}	
-			
-			
-			// use data from speech recognition recursively call next line?
+			}
 		}
+		
 	}
 }

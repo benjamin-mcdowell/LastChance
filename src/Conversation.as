@@ -6,8 +6,10 @@ package
 	import com.bmcdo248.SpeechExtension.events.SpeechEvent;
 	import com.bmcdo248.SpeechExtension.speechDiplomat.SpeechDiplomat;
 	
-	//Default imports
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
+	
+	import flashx.textLayout.formats.BackgroundColor;
 	
 	public class Conversation
 	{
@@ -40,6 +42,7 @@ package
 		private var lineToProcess:int = 0;
 		private var endOfConversation:Boolean = false;
 		private var thresh:Number = .0; // this is a constant don't change under penalty of death
+		private var nextSegment:Number = 0;
 
 		public function Conversation(lineVector:Vector.<Line>, displayer:Sprite)
 		{
@@ -49,17 +52,26 @@ package
 			
 			//initalization steps
 			initializeSpeech();
+			//initializeMouse();
 			initalizeUI();
 			
 			processLine(lineVector[0]);
 		}
-				
+		
 		private function initializeSpeech():void
 		{	
 			//begins speech recognition using the SAPI native extension.
 			speechDiplomat = new SpeechDiplomat();
 			speechDiplomat.addEventListener(SpeechEvent.DATA, dataEventHandler);
 			speechDiplomat.startSpeech()
+		}
+		
+		private function initializeMouse():void
+		{	
+			//begins speech recognition using the SAPI native extension.
+			response1.addEventListener(MouseEvent.CLICK, responseClicked);
+			response2.addEventListener(MouseEvent.CLICK, responseClicked);
+			response3.addEventListener(MouseEvent.CLICK, responseClicked);
 		}
 		
 		private function initalizeUI():void
@@ -103,7 +115,41 @@ package
 			response3.y = 355;
 			displayer.addChild(response3);
 		}
-
+		
+		//Orci: loops until conversatoin is over in order to stall episode code
+		public function run():Number
+		{
+			while(!endOfConversation){}
+			trace("End of conversation. Next segment is: " + nextSegment);
+			return -1 * nextSegment;//invert segment number to make it positive - 0 is end of episode
+		}
+		
+		//Orci: Advance based on mouse click
+		private function responseClicked(e:MouseEvent):void
+		{
+			var nextLine:Number;
+			if (e.target == response1)
+			{
+				nextLine = lineVector[lineToProcess].responses[0]
+			}
+			else if(e.target == response2)
+			{
+				nextLine = lineVector[lineToProcess].responses[0]
+			}
+			else
+			{
+				nextLine = lineVector[lineToProcess].responses[0]
+			}
+			
+			if(nextLine > 0)
+				processLine(lineVector[nextLine]);
+			else //done with segment, go to next
+			{
+				nextSegment = nextLine;
+				endOfConversation = true;
+			}
+		}
+		
 		private function dataEventHandler(e:SpeechEvent):void
 		{
 			//get the current phrase from the recognizer as e.data
@@ -144,20 +190,45 @@ package
 			var resp3Ratio:Number = resp3Count / response3Processed.length;
 			trace("ratios: " + resp1Ratio + "  " + resp2Ratio + "  " + resp3Ratio);
 			
+			var match:Boolean = false;
+			var nextLine:Number = 0;
 			if (resp1Ratio > resp2Ratio && resp3Ratio > resp1Ratio)
 			{
 				if(resp1Ratio > thresh)
-					processLine(lineVector[lineVector[lineToProcess].responses[0]]);
+				{
+					match=true;
+					nextLine = lineVector[lineToProcess].responses[0]
+				}
 			}	
 			else if (resp1Ratio > resp2Ratio && resp3Ratio > resp1Ratio)
 			{
 				if(resp2Ratio > thresh)
+				{
+					match=true;
+					nextLine = lineVector[lineToProcess].responses[0]
+				}
 					processLine(lineVector[lineVector[lineToProcess].responses[1]]);
 			}
 			else
 			{
 				if(resp3Ratio > thresh)
+				{
+					match=true;
+					nextLine = lineVector[lineToProcess].responses[0]
+				}
 					processLine(lineVector[lineVector[lineToProcess].responses[2]]);
+			}
+			trace(match);
+			if (match)
+			{
+				trace(nextLine);
+				if(nextLine > 0)
+					processLine(lineVector[nextLine]);
+				else //done with segment, go to next
+				{
+					nextSegment = nextLine;
+					endOfConversation = true;
+				}
 			}
 		}
 		

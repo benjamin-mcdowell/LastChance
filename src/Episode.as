@@ -1,6 +1,7 @@
 package
 {
 	import com.bit101.components.Label;
+	
 	import flash.display.Sprite;
 	
 	public class Episode
@@ -27,11 +28,11 @@ package
 						var lineID:int = x.SEGMENT[i].@LINE[j];
 						
 						var speaker:String = x.SEGMENT[i].LINE[j].SPEAKER;
-						var varLineText:String = x.SEGMENT[i].LINE[j].TEXT;
+						var varLineText:String = x.SEGMENT[i].LINE[j].DIALOG;
+						var pathToMP3:String = x.SEGMENT[i].LINE[j].PATHTOMP3;
 						var responses:String = x.SEGMENT[i].LINE[j].RESPONSES;
 						var passCount:int = x.SEGMENT[i].LINE[j].PASSCOUNT;
 						var failCount:int = x.SEGMENT[i].LINE[j].FAILCOUNT;
-						var pathToMP3:String = x.SEGMENT[i].LINE[j].PATHTOMP3;
 						
 						var line:Line;
 						line = new Line(lineID, speaker, varLineText, responses, passCount, failCount, pathToMP3);
@@ -42,6 +43,7 @@ package
 					//takes the lines of the conversation and the graphic displayer as input
 					var conversation:Conversation;
 					conversation = new Conversation(lineVector, displayer);
+					//var nextSegment:Number = conversation.run();
 				}
 				else if(x.SEGMENT[i].@TYPE == "adventure")
 				{
